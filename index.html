@@ -1,0 +1,768 @@
+        <!-- NOTES APP SCREEN -->
+        <div id="notes-app" class="app-screen bg-neutral-900 text-neutral-100 hidden flex flex-col h-full">
+            <!-- Header -->
+            <div class="pt-10 pb-3 px-4 bg-neutral-900/90 backdrop-blur border-b border-neutral-800 flex justify-between items-center sticky top-0 z-10">
+                <button onclick="closeApp('notes-app')" class="text-yellow-500 font-medium flex items-center text-sm active:opacity-75">
+                    <i class="fas border-l-2 border-b-2 border-yellow-500 w-2.5 h-2.5 transform rotate-45 mr-1"></i> Folders
+                </button>
+                <h2 class="text-base font-semibold text-neutral-200">Yearning Thoughts</h2>
+                <div class="w-12 text-right">
+                    <i class="fas fa-ellipsis-h text-yellow-500"></i>
+                </div>
+            </div>
+
+            <!-- Main Notes Container (List & Reader View) -->
+            <div id="notes-content-container" class="flex-1 overflow-y-auto relative p-4 space-y-3">
+                <!-- Notes Search Bar -->
+                <div class="bg-neutral-800 rounded-xl px-3 py-2 flex items-center text-sm text-neutral-400 mb-4">
+                    <i class="fas fa-search mr-2 text-xs"></i>
+                    <span>Search notes...</span>
+                </div>
+
+                <!-- Note Card 1 -->
+                <div onclick="openNoteDetail(0)" class="bg-neutral-800/80 hover:bg-neutral-800 active:scale-[0.98] transition-all p-3.5 rounded-xl cursor-pointer border border-neutral-700/50">
+                    <h3 class="font-semibold text-neutral-100 text-sm truncate">kangen banget padahal baru aja ketemu</h3>
+                    <p class="text-xs text-yellow-500/90 mt-1 font-mono">12 Aug 2026 • 02:14 AM</p>
+                    <p class="text-xs text-neutral-400 mt-1 line-clamp-2">kangen banget padahal baru aja ketemu tadi sore. kenapa sih mukanya muter-muter terus di kepala..</p>
+                </div>
+
+                <!-- Note Card 2 -->
+                <div onclick="openNoteDetail(1)" class="bg-neutral-800/80 hover:bg-neutral-800 active:scale-[0.98] transition-all p-3.5 rounded-xl cursor-pointer border border-neutral-700/50">
+                    <h3 class="font-semibold text-neutral-100 text-sm truncate">kok bisa nemu orang selucu kamu</h3>
+                    <p class="text-xs text-yellow-500/90 mt-1 font-mono">28 Aug 2026 • 11:45 PM</p>
+                    <p class="text-xs text-neutral-400 mt-1 line-clamp-2">kadang bingung kok bisa nemu orang selucu kamu. makin hari makin gak mau kehilangan.</p>
+                </div>
+
+                <!-- Note Card 3 -->
+                <div onclick="openNoteDetail(2)" class="bg-neutral-800/80 hover:bg-neutral-800 active:scale-[0.98] transition-all p-3.5 rounded-xl cursor-pointer border border-neutral-700/50">
+                    <h3 class="font-semibold text-neutral-100 text-sm truncate">tatapan matanya pas senyum tadi siang</h3>
+                    <p class="text-xs text-yellow-500/90 mt-1 font-mono">10 Sep 2026 • 01:02 AM</p>
+                    <p class="text-xs text-neutral-400 mt-1 line-clamp-2">tatapan matanya pas senyum tadi siang masih berbekas. i wish i could pause time whenever i'm with you, keefe.</p>
+                </div>
+
+                <!-- Note Card 4 -->
+                <div onclick="openNoteDetail(3)" class="bg-neutral-800/80 hover:bg-neutral-800 active:scale-[0.98] transition-all p-3.5 rounded-xl cursor-pointer border border-neutral-700/50">
+                    <h3 class="font-semibold text-neutral-100 text-sm truncate">beliin dia matcha lagi besok</h3>
+                    <p class="text-xs text-yellow-500/90 mt-1 font-mono">27 Sep 2026 • 04:30 PM</p>
+                    <p class="text-xs text-neutral-400 mt-1 line-clamp-2">beliin dia matcha lagi besok. suka banget liat mukanya merem melek pas minum matcha favoritnya.</p>
+                </div>
+
+                <!-- Note Card 5 -->
+                <div onclick="openNoteDetail(4)" class="bg-neutral-800/80 hover:bg-neutral-800 active:scale-[0.98] transition-all p-3.5 rounded-xl cursor-pointer border border-neutral-700/50">
+                    <h3 class="font-semibold text-neutral-100 text-sm truncate">nekat nungguin jam 3 pagi</h3>
+                    <p class="text-xs text-yellow-500/90 mt-1 font-mono">14 Oct 2026 • 03:22 AM</p>
+                    <p class="text-xs text-neutral-400 mt-1 line-clamp-2">nekat nungguin jam 3 pagi cuma buat denger suara nafasnya di telfon pas ketiduran. gemes banget tuhan.</p>
+                </div>
+
+                <!-- Note Card 6 -->
+                <div onclick="openNoteDetail(5)" class="bg-neutral-800/80 hover:bg-neutral-800 active:scale-[0.98] transition-all p-3.5 rounded-xl cursor-pointer border border-neutral-700/50">
+                    <h3 class="font-semibold text-neutral-100 text-sm truncate">besok udah tanggal 30</h3>
+                    <p class="text-xs text-yellow-500/90 mt-1 font-mono">29 Oct 2026 • 10:15 PM</p>
+                    <p class="text-xs text-neutral-400 mt-1 line-clamp-2">besok udah tanggal 30. ga terasa udah 3 bulan sama kamu. makin sayang, makin ga mau jauh-jauh.</p>
+                </div>
+            </div>
+
+            <!-- Single Note Detail Overlay View -->
+            <div id="note-reader" class="hidden absolute inset-0 bg-neutral-900 z-20 flex flex-col p-5 pt-12 overflow-y-auto">
+                <button onclick="closeNoteDetail()" class="text-yellow-500 font-medium mb-4 flex items-center text-sm self-start">
+                    <i class="fas border-l-2 border-b-2 border-yellow-500 w-2.5 h-2.5 transform rotate-45 mr-1"></i> Notes
+                </button>
+                <div class="text-xs text-neutral-500 font-mono text-center mb-4" id="note-reader-timestamp"></div>
+                <div class="text-sm text-neutral-200 leading-relaxed font-sans whitespace-pre-wrap" id="note-reader-body"></div>
+            </div>
+        </div>
+
+        <!-- Top Status Bar -->
+        <div class="relative z-40 flex justify-between items-center px-6 pt-2 text-xs font-semibold text-white tracking-tight">
+            <span id="statusBarClock">09:41</span>
+            <div class="flex items-center space-x-2 text-xs">
+                <i class="fa-solid font-bold fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full text-green-400 text-sm"></i>
+            </div>
+        </div>
+
+        <!-- MAIN PHONE DISPLAY AREA -->
+        <div id="phoneScreen" class="relative w-full h-[730px] rounded-[38px] overflow-hidden bg-slate-900">
+
+            <!-- ================= SCREEN 1: LOCKSCREEN ================= -->
+            <div id="lockScreen" class="absolute inset-0 z-30 flex flex-col justify-between p-6 bg-cover bg-center transition-all duration-500" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80');">
+                <!-- Dark Overlay -->
+                <div class="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
+
+                <!-- Clock & Date Header -->
+                <div class="relative z-10 text-center pt-8 text-white">
+                    <p class="text-xs font-medium uppercase tracking-widest text-slate-200">Kamis, 30 Oktober</p>
+                    <h1 class="text-6xl font-extralight tracking-tight mt-1" id="lockClock">09:41</h1>
+                    <div class="mt-4 inline-flex items-center space-x-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-xs">
+                        <i class="fa-solid fa-heart text-rose-400"></i>
+                        <span>3 Months Together</span>
+                    </div>
+                </div>
+
+                <!-- PIN Lock View (Hidden by default, shown on swipe/click) -->
+                <div id="pinContainer" class="relative z-10 flex flex-col items-center pb-6">
+                    <p id="pinPrompt" class="text-xs font-medium text-slate-200 mb-4 tracking-wide">Masukkan Sandi (3007)</p>
+                    
+                    <!-- PIN Dots -->
+                    <div id="pinDots" class="flex space-x-4 mb-8">
+                        <div class="w-3.5 h-3.5 rounded-full border-2 border-white/80 bg-transparent transition-all duration-200"></div>
+                        <div class="w-3.5 h-3.5 rounded-full border-2 border-white/80 bg-transparent transition-all duration-200"></div>
+                        <div class="w-3.5 h-3.5 rounded-full border-2 border-white/80 bg-transparent transition-all duration-200"></div>
+                        <div class="w-3.5 h-3.5 rounded-full border-2 border-white/80 bg-transparent transition-all duration-200"></div>
+                    </div>
+
+                    <!-- Keypad Grid -->
+                    <div class="grid grid-cols-3 gap-4 w-64 text-center">
+                        <button onclick="pressPin('1')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">1</button>
+                        <button onclick="pressPin('2')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">2</button>
+                        <button onclick="pressPin('3')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">3</button>
+                        <button onclick="pressPin('4')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">4</button>
+                        <button onclick="pressPin('5')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">5</button>
+                        <button onclick="pressPin('6')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">6</button>
+                        <button onclick="pressPin('7')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">7</button>
+                        <button onclick="pressPin('8')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">8</button>
+                        <button onclick="pressPin('9')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">9</button>
+                        <div class="w-16 h-16"></div>
+                        <button onclick="pressPin('0')" class="key-btn w-16 h-16 mx-auto rounded-full bg-white/20 backdrop-blur-md text-xl font-semibold text-white flex items-center justify-center">0</button>
+                        <button onclick="deletePin()" class="w-16 h-16 mx-auto text-sm font-medium text-white/80 flex items-center justify-center">Hapus</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SCREEN 2: HOMESCREEN ================= -->
+            <div id="homeScreen" class="absolute inset-0 z-20 p-6 bg-cover bg-center flex flex-col justify-between hidden" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80');">
+                <div class="absolute inset-0 bg-black/25"></div>
+
+                <!-- Apps Grid -->
+                <div class="relative z-10 pt-10 grid grid-cols-4 gap-y-6 gap-x-3 text-center">
+                    <!-- WhatsApp -->
+                    <div onclick="openApp('waApp')" class="flex flex-col items-center group cursor-pointer">
+                        <div class="relative w-14 h-14 bg-gradient-to-tr from-emerald-600 to-green-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg group-active:scale-95 transition-transform">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-slate-900">4</span>
+                        </div>
+                        <span class="text-[11px] text-white font-medium mt-1 drop-shadow">WhatsApp</span>
+                    </div>
+
+                    <!-- Photos -->
+                    <div onclick="openApp('photosApp')" class="flex flex-col items-center group cursor-pointer">
+                        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-slate-800 text-2xl shadow-lg group-active:scale-95 transition-transform overflow-hidden relative">
+                            <div class="grid grid-cols-2 gap-0.5 w-full h-full p-1">
+                                <div class="bg-rose-400 rounded-sm"></div>
+                                <div class="bg-amber-400 rounded-sm"></div>
+                                <div class="bg-sky-400 rounded-sm"></div>
+                                <div class="bg-emerald-400 rounded-sm"></div>
+                            </div>
+                        </div>
+                        <span class="text-[11px] text-white font-medium mt-1 drop-shadow">Galeri</span>
+                    </div>
+
+                    <!-- Music -->
+                    <div onclick="openApp('musicApp')" class="flex flex-col items-center group cursor-pointer">
+                        <div class="w-14 h-14 bg-gradient-to-tr from-rose-500 to-pink-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg group-active:scale-95 transition-transform">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                        <span class="text-[11px] text-white font-medium mt-1 drop-shadow">Musik</span>
+                    </div>
+
+                    <!-- iMessage -->
+                    <div onclick="openApp('imessageApp')" class="flex flex-col items-center group cursor-pointer">
+                        <div class="w-14 h-14 bg-gradient-to-tr from-blue-600 to-sky-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg group-active:scale-95 transition-transform">
+                            <i class="fa-solid fa-comment"></i>
+                        </div>
+                        <span class="text-[11px] text-white font-medium mt-1 drop-shadow">Pesan</span>
+                    </div>
+
+                    <!-- Notes / Letter -->
+                    <div onclick="openApp('notesApp')" class="flex flex-col items-center group cursor-pointer">
+                        <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-700 text-2xl shadow-lg group-active:scale-95 transition-transform">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <span class="text-[11px] text-white font-medium mt-1 drop-shadow">Catatan</span>
+                    </div>
+                </div>
+
+                <!-- Bottom Dock -->
+                <div class="relative z-10 bg-white/20 backdrop-blur-xl rounded-3xl p-3 grid grid-cols-4 gap-3">
+                    <div onclick="openApp('waApp')" class="w-12 h-12 mx-auto bg-green-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div onclick="openApp('photosApp')" class="w-12 h-12 mx-auto bg-white rounded-2xl flex items-center justify-center text-slate-700 text-xl shadow overflow-hidden p-1">
+                        <i class="fa-solid fa-images text-slate-700"></i>
+                    </div>
+                    <div onclick="openApp('musicApp')" class="w-12 h-12 mx-auto bg-rose-500 rounded-2xl flex items-center justify-center text-white text-xl shadow">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                    <div onclick="openApp('notesApp')" class="w-12 h-12 mx-auto bg-amber-200 rounded-2xl flex items-center justify-center text-amber-800 text-xl shadow">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= APPLICATION 1: WHATSAPP ================= -->
+            <div id="waApp" class="app-screen absolute inset-0 z-40 bg-slate-900 flex flex-col hidden">
+                <!-- Chat Header -->
+                <div class="bg-slate-800/90 backdrop-blur border-b border-slate-700/60 p-3 pt-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <button onclick="closeApp('waApp')" class="text-sky-400 text-lg pr-1">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <!-- Keefe Avatar -->
+                        <div class="relative w-10 h-10 rounded-full overflow-hidden border border-slate-600">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80" alt="J. Keefe" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-bold text-white leading-tight">J. Keefe ❤️</h2>
+                            <p class="text-[10px] text-emerald-400 font-medium">Online</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 text-sky-400 text-lg">
+                        <i class="fa-solid fa-video cursor-pointer"></i>
+                        <i onclick="triggerIncomingCall()" class="fa-solid fa-phone cursor-pointer"></i>
+                    </div>
+                </div>
+
+                <!-- Chat Body -->
+                <div id="chatBody" class="flex-1 p-4 overflow-y-auto space-y-3 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]">
+                    <div class="text-center my-2">
+                        <span class="bg-slate-800 text-slate-400 text-[10px] px-3 py-1 rounded-full border border-slate-700">Hari ini, 30 Oktober 2026</span>
+                    </div>
+
+                    <!-- Keefe Chat Spam -->
+                    <div class="flex flex-col space-y-1 items-start">
+                        <div class="bg-slate-800 text-slate-100 text-xs px-3.5 py-2 rounded-2xl rounded-tl-sm max-w-[75%] border border-slate-700/50 shadow-sm">
+                            kakak
+                        </div>
+                        <div class="bg-slate-800 text-slate-100 text-xs px-3.5 py-2 rounded-2xl rounded-tl-sm max-w-[75%] border border-slate-700/50 shadow-sm">
+                            kakakkk
+                        </div>
+                        <div class="bg-slate-800 text-slate-100 text-xs px-3.5 py-2 rounded-2xl rounded-tl-sm max-w-[75%] border border-slate-700/50 shadow-sm">
+                            kakak ihhh
+                        </div>
+                        <div class="bg-slate-800 text-slate-100 text-xs px-3.5 py-2 rounded-2xl rounded-tl-sm max-w-[80%] border border-slate-700/50 shadow-sm">
+                            happy 3rd mensive yaaa sayanggg 🤍 gemes bgt udah 3 bulan aja kitaaa
+                            <span class="block text-[9px] text-slate-400 text-right mt-1">08:14</span>
+                        </div>
+                    </div>
+
+                    <!-- Tanjung Reply -->
+                    <div class="flex flex-col space-y-1 items-end">
+                        <div class="bg-emerald-700 text-white text-xs px-3.5 py-2 rounded-2xl rounded-tr-sm max-w-[80%] shadow-sm">
+                            happy 3rd mensive juga ya cantikkk 🤍 makasih udah nemenin aku terus 3 bulan ini, sabar-sabar ya sama aku wkwk. love you so much!
+                            <span class="block text-[9px] text-emerald-200 text-right mt-1">08:16 <i class="fa-solid fa-check-double text-sky-300"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Area -->
+                <div class="p-3 bg-slate-800 border-t border-slate-700/70 flex items-center space-x-2">
+                    <input type="text" id="chatInput" placeholder="Ketik balasan..." class="flex-1 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-full border border-slate-700 focus:outline-none focus:border-sky-500">
+                    <button onclick="sendChatMessage()" class="w-9 h-9 bg-emerald-600 rounded-full flex items-center justify-center text-white text-xs hover:bg-emerald-500">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= SCREEN 3: INCOMING CALL ================= -->
+            <div id="incomingCallScreen" class="absolute inset-0 z-50 bg-slate-950/95 backdrop-blur-2xl flex flex-col justify-between p-8 text-center hidden">
+                <div class="pt-12">
+                    <div class="relative w-28 h-28 mx-auto rounded-full p-1 bg-gradient-to-tr from-rose-500 to-amber-500 call-pulse mb-4">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover rounded-full border-2 border-slate-900">
+                    </div>
+                    <h2 class="text-2xl font-bold text-white">J. Keefe ❤️</h2>
+                    <p class="text-xs text-slate-400 mt-1 animate-pulse">Panggilan Masuk WhatsApp...</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center justify-around pb-12">
+                    <!-- Reject -->
+                    <button onclick="rejectCall()" class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white text-2xl shadow-lg active:scale-95 transition-transform">
+                            <i class="fa-solid fa-phone-slash"></i>
+                        </div>
+                        <span class="text-xs text-slate-300 mt-2 font-medium">Tolak</span>
+                    </button>
+
+                    <!-- Accept -->
+                    <button onclick="acceptCall()" class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl shadow-lg active:scale-95 transition-transform">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <span class="text-xs text-slate-300 mt-2 font-medium">Terima</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= SCREEN 4: ACTIVE CALL SCREEN ================= -->
+            <div id="activeCallScreen" class="absolute inset-0 z-50 bg-slate-950 flex flex-col justify-between p-6 text-center hidden">
+                <div class="pt-8">
+                    <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border-2 border-emerald-500 shadow-xl mb-3">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-white">J. Keefe ❤️</h3>
+                    <p id="callTimer" class="text-xs text-emerald-400 font-mono mt-1">00:00</p>
+                </div>
+
+                <!-- Call Subtitles / Dialogue Display -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 my-auto mx-2 min-h-[140px] flex items-center justify-center shadow-inner">
+                    <p id="dialogueText" class="text-sm font-medium text-slate-200 italic leading-relaxed">
+                        "..."
+                    </p>
+                </div>
+
+                <!-- End Call Button -->
+                <div class="pb-8">
+                    <button onclick="endCall()" class="w-16 h-16 mx-auto bg-red-600 rounded-full flex items-center justify-center text-white text-2xl shadow-lg active:scale-95 transition-transform">
+                        <i class="fa-solid fa-phone-slash"></i>
+                    </button>
+                    <span class="text-[10px] text-slate-400 block mt-2">Tutup Panggilan</span>
+                </div>
+            </div>
+
+            <!-- ================= APPLICATION 2: PHOTOS / GALLERY ================= -->
+            <div id="photosApp" class="app-screen absolute inset-0 z-40 bg-slate-950 flex flex-col hidden overflow-y-auto">
+                <div class="sticky top-0 bg-slate-900/90 backdrop-blur border-b border-slate-800 p-4 flex justify-between items-center z-10">
+                    <h2 class="text-lg font-bold text-white">Galeri Kenangan</h2>
+                    <button onclick="closeApp('photosApp')" class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-full border border-slate-700">Tutup</button>
+                </div>
+
+                <div class="p-4 space-y-6">
+                    <!-- Section: Agustus 2026 -->
+                    <div>
+                        <h3 class="text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider">Agustus 2026</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <img onclick="viewPhoto(this.src)" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" class="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-90">
+                            <img onclick="viewPhoto(this.src)" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80" class="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-90">
+                            <img onclick="viewPhoto(this.src)" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80" class="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-90">
+                        </div>
+                    </div>
+
+                    <!-- Section: September 2026 -->
+                    <div>
+                        <h3 class="text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider">September 2026</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <img onclick="viewPhoto(this.src)" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" class="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-90">
+                            <img onclick="viewPhoto(this.src)" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" class="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-90">
+                        </div>
+                    </div>
+
+                    <!-- Section: Oktober 2026 -->
+                    <div>
+                        <h3 class="text-xs font-semibold text-rose-400 mb-2 uppercase tracking-wider">Oktober 2026 (Mensive)</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <img onclick="viewPhoto(this.src)" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" class="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-90">
+                            <img onclick="viewPhoto(this.src)" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80" class="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-90">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox View -->
+            <div id="photoModal" class="absolute inset-0 z-50 bg-black/95 flex flex-col justify-between p-4 hidden">
+                <button onclick="closePhotoModal()" class="self-end text-white text-xl p-2"><i class="fa-solid fa-xmark"></i></button>
+                <img id="modalImg" class="max-h-[70%] w-full object-contain mx-auto rounded-lg">
+                <div class="text-center text-xs text-slate-400 pb-4">Kenangan Tanjung & Keefe 🤍</div>
+            </div>
+
+            <!-- ================= APPLICATION 3: MUSIC PLAYER ================= -->
+            <div id="musicApp" class="app-screen absolute inset-0 z-40 bg-gradient-to-b from-slate-900 via-rose-950 to-slate-950 flex flex-col p-6 hidden overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <button onclick="closeApp('musicApp')" class="text-slate-300 text-lg"><i class="fa-solid fa-chevron-down"></i></button>
+                    <span class="text-xs font-semibold text-rose-300 tracking-wide uppercase">Playlist Mensive</span>
+                    <i class="fa-solid fa-ellipsis-vertical text-slate-400"></i>
+                </div>
+
+                <!-- Album Cover Art (Polaroid Photo) -->
+                <div class="w-56 h-56 mx-auto bg-white p-3 rounded-lg shadow-2xl transform -rotate-1 my-2">
+                    <div class="w-full h-44 bg-slate-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover grayscale">
+                    </div>
+                    <p class="text-[10px] text-center text-slate-600 font-serif mt-1 italic">3rd Mensive Soundtrack 🤍</p>
+                </div>
+
+                <!-- Song Info -->
+                <div class="mt-4 text-center">
+                    <h3 id="songTitle" class="text-base font-bold text-white tracking-tight">Can't Help Falling in Love</h3>
+                    <p id="songArtist" class="text-xs text-rose-300/80 mt-0.5">Elvis Presley</p>
+                </div>
+
+                <!-- Player Controls -->
+                <div class="mt-6 space-y-3">
+                    <div class="w-full bg-slate-700/60 h-1.5 rounded-full overflow-hidden cursor-pointer" onclick="seekAudio(event)">
+                        <div id="audioProgress" class="bg-rose-400 h-full w-1/3 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                        <span id="currentTime">1:12</span>
+                        <span id="totalTime">3:00</span>
+                    </div>
+
+                    <div class="flex items-center justify-center space-x-6 text-white pt-2">
+                        <button onclick="prevSong()" class="text-xl text-slate-300 hover:text-white"><i class="fa-solid fa-backward-step"></i></button>
+                        <button onclick="togglePlay()" id="playBtn" class="w-12 h-12 bg-rose-500 rounded-full flex items-center justify-center text-white text-xl shadow-lg hover:bg-rose-400 transition-transform active:scale-95">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <button onclick="nextSong()" class="text-xl text-slate-300 hover:text-white"><i class="fa-solid fa-forward-step"></i></button>
+                    </div>
+                </div>
+
+                <!-- Playlist View -->
+                <div class="mt-6 border-t border-white/10 pt-4">
+                    <h4 class="text-xs font-semibold text-slate-300 mb-2">Daftar Lagu (9 Tracks)</h4>
+                    <div id="playlistContainer" class="space-y-2 text-xs max-h-40 overflow-y-auto">
+                        <!-- Generated via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= APPLICATION 4: IMESSAGE ================= -->
+            <div id="imessageApp" class="app-screen absolute inset-0 z-40 bg-slate-900 flex flex-col hidden">
+                <div class="bg-slate-800 p-4 flex justify-between items-center border-b border-slate-700">
+                    <h2 class="text-base font-bold text-white">Pesan Operator</h2>
+                    <button onclick="closeApp('imessageApp')" class="text-xs text-sky-400">Tutup</button>
+                </div>
+                <div class="p-4 space-y-4 overflow-y-auto text-xs">
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <p class="font-bold text-sky-400">INFO OPERATOR</p>
+                        <p class="text-slate-300 mt-1">Sisa kuota Paket Unlimited Anda masih berlaku s/d 30/11/2026. Tetap terhubung dengan pacar tersayang!</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                        <p class="font-bold text-emerald-400">PROMO SPECIAL</p>
+                        <p class="text-slate-300 mt-1">Selamat 3rd Mensive! Nikmati diskon jajan matcha bareng Keefe nanti malam 🍵🤍</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= APPLICATION 5: NOTES / LETTER ================= -->
+            <div id="notesApp" class="app-screen absolute inset-0 z-40 bg-amber-50 text-slate-800 flex flex-col p-6 hidden overflow-y-auto">
+                <div class="flex justify-between items-center pb-4 border-b border-amber-200">
+                    <button onclick="closeApp('notesApp')" class="text-amber-800 text-sm font-semibold">‹ Kembali</button>
+                    <span class="text-xs font-bold text-amber-700">30 Oktober 2026</span>
+                </div>
+                <div class="pt-4 space-y-3 font-serif leading-relaxed">
+                    <h2 class="text-xl font-bold text-amber-900">Happy 3rd Mensive, Cantik! 🤍</h2>
+                    <p class="text-xs text-slate-700">
+                        Nggak kerasa ya udah 3 bulan kita jalanin hari-hari bareng. Makasih ya udah selalu hadir, selalu bikin senyum, dan sabar nanggepin aku pas lagi sibuk.
+                    </p>
+                    <p class="text-xs text-slate-700">
+                        Janji nanti malam kita beli matcha, beli jajan, dan nonton bareng sesuai permintaan kamu! Tetap sama aku terus yaa, Keefe.
+                    </p>
+                    <p class="text-xs text-amber-800 font-bold pt-4 text-right">
+                        — Dari Tanjung (Kakak)
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Phone Home Indicator Bar -->
+        <div onclick="goHome()" class="relative z-50 w-32 h-1 bg-white/40 hover:bg-white/70 rounded-full mx-auto my-1 cursor-pointer transition-colors"></div>
+    </div>
+
+    <!-- Hidden Audio Element for Music App -->
+    <audio id="audioPlayer"></audio>
+
+    <!-- JavaScript logic -->
+    <script>
+        // State variables
+        // Notes App Data & Handler Functions
+        const notesData = [
+            {
+                timestamp: "12 Aug 2026 • 02:14 AM",
+                content: "kangen banget padahal baru aja ketemu tadi sore. kenapa sih mukanya muter-muter terus di kepala.."
+            },
+            {
+                timestamp: "28 Aug 2026 • 11:45 PM",
+                content: "kadang bingung kok bisa nemu orang selucu kamu. makin hari makin gak mau kehilangan."
+            },
+            {
+                timestamp: "10 Sep 2026 • 01:02 AM",
+                content: "tatapan matanya pas senyum tadi siang masih berbekas. i wish i could pause time whenever i'm with you, keefe."
+            },
+            {
+                timestamp: "27 Sep 2026 • 04:30 PM",
+                content: "beliin dia matcha lagi besok. suka banget liat mukanya merem melek pas minum matcha favoritnya."
+            },
+            {
+                timestamp: "14 Oct 2026 • 03:22 AM",
+                content: "nekat nungguin jam 3 pagi cuma buat denger suara nafasnya di telfon pas ketiduran. gemes banget tuhan."
+            },
+            {
+                timestamp: "29 Oct 2026 • 10:15 PM",
+                content: "besok udah tanggal 30. ga terasa udah 3 bulan sama kamu. makin sayang, makin ga mau jauh-jauh."
+            }
+        ];
+
+        function openNoteDetail(index) {
+            const note = notesData[index];
+            document.getElementById('note-reader-timestamp').innerText = note.timestamp;
+            document.getElementById('note-reader-body').innerText = note.content;
+            document.getElementById('note-reader').classList.remove('hidden');
+        }
+
+        function closeNoteDetail() {
+            document.getElementById('note-reader').classList.add('hidden');
+        }
+
+        function deletePin() {
+            if (pinInput.length > 0) {
+                pinInput = pinInput.slice(0, -1);
+                updatePinDots();
+            }
+        }
+
+        function updatePinDots() {
+            const dots = document.querySelectorAll('#pinDots > div');
+            dots.forEach((dot, index) => {
+                if (index < pinInput.length) {
+                    dot.classList.add('bg-white');
+                } else {
+                    dot.classList.remove('bg-white');
+                }
+            });
+        }
+
+        function checkPin() {
+            if (pinInput === correctPin) {
+                isPhoneUnlocked = true;
+                document.getElementById('lockScreen').classList.add('hidden');
+                document.getElementById('homeScreen').classList.remove('hidden');
+            } else {
+                const pinContainer = document.getElementById('pinContainer');
+                pinContainer.classList.add('animate-shake');
+                document.getElementById('pinPrompt').innerText = "PIN Salah! Coba 3007";
+                document.getElementById('pinPrompt').classList.add('text-red-400');
+                setTimeout(() => {
+                    pinContainer.classList.remove('animate-shake');
+                    pinInput = "";
+                    updatePinDots();
+                }, 500);
+            }
+        }
+
+        // Navigation Apps Logic
+        function openApp(appId) {
+            if (!isPhoneUnlocked) return;
+            document.querySelectorAll('.app-screen').forEach(screen => screen.classList.add('hidden'));
+            document.getElementById(appId).classList.remove('hidden');
+        }
+
+        function closeApp(appId) {
+            document.getElementById(appId).classList.add('hidden');
+        }
+
+        function goHome() {
+            if (!isPhoneUnlocked) return;
+            document.querySelectorAll('.app-screen').forEach(screen => screen.classList.add('hidden'));
+            document.getElementById('incomingCallScreen').classList.add('hidden');
+            document.getElementById('activeCallScreen').classList.add('hidden');
+            document.getElementById('homeScreen').classList.remove('hidden');
+        }
+
+        // WhatsApp Interactive Functions
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatBody = document.getElementById('chatBody');
+            
+            // Append User Message
+            const msgDiv = document.createElement('div');
+            msgDiv.className = "flex flex-col space-y-1 items-end";
+            msgDiv.innerHTML = `
+                <div class="bg-emerald-700 text-white text-xs px-3.5 py-2 rounded-2xl rounded-tr-sm max-w-[80%] shadow-sm">
+                    ${message}
+                    <span class="block text-[9px] text-emerald-200 text-right mt-1">08:18 <i class="fa-solid fa-check-double text-sky-300"></i></span>
+                </div>
+            `;
+            chatBody.appendChild(msgDiv);
+            input.value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Trigger Keefe Call after 1.5 seconds
+            setTimeout(() => {
+                triggerIncomingCall();
+            }, 1500);
+        }
+
+        function triggerIncomingCall() {
+            document.getElementById('incomingCallScreen').classList.remove('hidden');
+        }
+
+        function rejectCall() {
+            document.getElementById('incomingCallScreen').classList.add('hidden');
+            openApp('waApp');
+
+            const chatBody = document.getElementById('chatBody');
+            setTimeout(() => {
+                const reply1 = document.createElement('div');
+                reply1.className = "flex flex-col space-y-1 items-start";
+                reply1.innerHTML = `
+                    <div class="bg-slate-800 text-slate-100 text-xs px-3.5 py-2 rounded-2xl rounded-tl-sm max-w-[75%] border border-slate-700/50 shadow-sm">
+                        kok kamu reject sih?
+                    </div>
+                    <div class="bg-slate-800 text-slate-100 text-xs px-3.5 py-2 rounded-2xl rounded-tl-sm max-w-[75%] border border-slate-700/50 shadow-sm">
+                        kakak udah gak sayang aku 🥺
+                    </div>
+                `;
+                chatBody.appendChild(reply1);
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                // Call again after 2 seconds
+                setTimeout(() => {
+                    triggerIncomingCall();
+                }, 2500);
+            }, 800);
+        }
+
+        function acceptCall() {
+            document.getElementById('incomingCallScreen').classList.add('hidden');
+            document.getElementById('activeCallScreen').classList.remove('hidden');
+
+            // Reset Dialogue
+            dialogueIndex = 0;
+            updateDialogue();
+
+            // Start Call Timer
+            let seconds = 0;
+            clearInterval(callTimerInterval);
+            callTimerInterval = setInterval(() => {
+                seconds++;
+                const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+                const secs = String(seconds % 60).padStart(2, '0');
+                document.getElementById('callTimer').innerText = `${mins}:${secs}`;
+
+                // Advance Dialogues every 3 seconds
+                if (seconds % 3 === 0 && dialogueIndex < callDialogues.length - 1) {
+                    dialogueIndex++;
+                    updateDialogue();
+                } else if (dialogueIndex >= callDialogues.length - 1 && seconds > 16) {
+                    endCall();
+                }
+            }, 1000);
+        }
+
+        function updateDialogue() {
+            const current = callDialogues[dialogueIndex];
+            const dialogueText = document.getElementById('dialogueText');
+            dialogueText.innerHTML = `<strong class="${current.speaker === 'Tanjung' ? 'text-sky-400' : 'text-rose-400'}">${current.speaker}:</strong> "${current.text}"`;
+        }
+
+        function endCall() {
+            clearInterval(callTimerInterval);
+            document.getElementById('activeCallScreen').classList.add('hidden');
+            openApp('waApp');
+        }
+
+        // Photo Lightbox View
+        function viewPhoto(src) {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('photoModal').classList.remove('hidden');
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').classList.add('hidden');
+        }
+
+        // Music Player Logic
+        const audio = document.getElementById('audioPlayer');
+
+        function loadPlaylist() {
+            const container = document.getElementById('playlistContainer');
+            container.innerHTML = "";
+            playlist.forEach((song, idx) => {
+                const item = document.createElement('div');
+                item.className = `p-2 rounded-lg flex justify-between items-center cursor-pointer ${idx === currentSongIndex ? 'bg-rose-500/30 border border-rose-500/50 text-white' : 'text-slate-400 hover:bg-white/5'}`;
+                item.onclick = () => selectSong(idx);
+                item.innerHTML = `
+                    <div>
+                        <p class="font-semibold text-xs">${song.title}</p>
+                        <p class="text-[10px] opacity-75">${song.artist}</p>
+                    </div>
+                    <i class="fa-solid ${idx === currentSongIndex && isPlaying ? 'fa-volume-high text-rose-400' : 'fa-play text-xs opacity-50'}"></i>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function selectSong(index) {
+            currentSongIndex = index;
+            const song = playlist[currentSongIndex];
+            document.getElementById('songTitle').innerText = song.title;
+            document.getElementById('songArtist').innerText = song.artist;
+            audio.src = song.url;
+            playAudio();
+            loadPlaylist();
+        }
+
+        function togglePlay() {
+            if (!audio.src) {
+                selectSong(0);
+                return;
+            }
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+
+        function playAudio() {
+            audio.play().then(() => {
+                isPlaying = true;
+                document.getElementById('playBtn').innerHTML = `<i class="fa-solid fa-pause"></i>`;
+                loadPlaylist();
+            }).catch(e => console.log("Audio play error:", e));
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            isPlaying = false;
+            document.getElementById('playBtn').innerHTML = `<i class="fa-solid fa-play"></i>`;
+            loadPlaylist();
+        }
+
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            selectSong(currentSongIndex);
+        }
+
+        function prevSong() {
+            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+            selectSong(currentSongIndex);
+        }
+
+        audio.ontimeupdate = function() {
+            if (audio.duration) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                document.getElementById('audioProgress').style.width = `${progress}%`;
+                
+                const curMins = Math.floor(audio.currentTime / 60);
+                const curSecs = Math.floor(audio.currentTime % 60);
+                document.getElementById('currentTime').innerText = `${curMins}:${curSecs < 10 ? '0' : ''}${curSecs}`;
+
+                const durMins = Math.floor(audio.duration / 60);
+                const durSecs = Math.floor(audio.duration % 60);
+                document.getElementById('totalTime').innerText = `${durMins}:${durSecs < 10 ? '0' : ''}${durSecs}`;
+            }
+        };
+
+        // Realtime Clock Update for Status Bar
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('statusBarClock').innerText = `${hours}:${minutes}`;
+            document.getElementById('lockClock').innerText = `${hours}:${minutes}`;
+        }
+        setInterval(updateClock, 1000);
+
+        // Initialize Music App Playlist
+        window.onload = function() {
+            loadPlaylist();
+            updateClock();
+        };
+    </script>
+</body>
+</html>
